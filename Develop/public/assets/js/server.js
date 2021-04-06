@@ -39,4 +39,20 @@ app.get('/api/notes', (req, res) => res.json(notes));
 app.get('api/notes/:note', (req, res) => {
     const searched = req.params.note;
     console.log(searched);
+
+    for (let i = 0; i < notes.length; i++) {
+        if (searched === notes[i].routeName) {
+            return res.json(notes[i]);
+        }
+    }
 })
+
+//create new notes
+app.post('/api/notes', (req, res) => {
+    const newNote = req.body;
+    newNote.routeName = newNote.name.replace(/\s+/g, '');
+    console.log(newNote);
+
+    notes.push(newNote);
+    res.json(newNote);
+});
