@@ -4,7 +4,7 @@ const path = require('path');
 
 //set up express app
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 //set up express to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -28,9 +28,9 @@ const newNote = [
 ]
 
 //routes
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public','index.html')));
 
-app.get('/notes', (req,res) => res.sendFile(path.join(__dirname, 'notes.html')));
+app.get('../notes', (req,res) => res.sendFile(path.join(__dirname, 'public', 'notes.html')));
 
 //display all notes
 app.get('/api/notes', (req, res) => res.json(notes));
@@ -56,3 +56,6 @@ app.post('/api/notes', (req, res) => {
     notes.push(newNote);
     res.json(newNote);
 });
+
+//start server to begin listening
+app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
