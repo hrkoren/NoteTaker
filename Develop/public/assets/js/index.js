@@ -62,6 +62,7 @@ const renderActiveNote = () => {
     noteTitle.value = '';
     noteText.value = '';
   }
+  console.log(activeNote);
 };
 
 const handleNoteSave = () => {
