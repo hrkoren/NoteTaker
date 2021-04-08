@@ -46,7 +46,7 @@ app.post('/api/notes', (req, res) => {
 //delete notes
 // app.delete('api/notes/:id', (req, res) => {
 //     let id = req.params.id;
-//     delete dbNotes(id);
+//     delete dbNotes(id); 
 //     dbUpdate(dbNotes);
 //     res.send(dbNotes);
 // });
