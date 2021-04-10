@@ -51,20 +51,20 @@ app.post('/api/notes', (req, res) => {
         if (err) throw err;
     });
     res.json(newNote);
+});
 
 // delete notes
-app.delete('/api/notes/{id}', (req, res) => {
-    fs.readFile(newNote, (err) => {
-        if(err) throw err;
-        newNote = JSON.parse(data);
+// app.delete('/api/notes/:id', (req, res) => {
+//     fs.readFile(newNote, (err) => {
+//         if(err) throw err;
+//         newNote = JSON.parse(data);
 
-    let noteId = newNote.find(({id}) => id === req.params.id)
-    newNote.splice(noteId, 1);
-    dbUpdate(dbNotes);
-    res.send(dbNotes);
-});
-});
-});
+//     let noteData = newNote.find(({id}) => id === req.params.id)
+//     newNote.splice(noteData, 1);
+//     dbUpdate(dbNotes);
+//     res.send(dbNotes);
+// });
+
 
 //start server to begin listening
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
