@@ -6,7 +6,7 @@ ________________________________________________________________________________
 This Express.js Note Taker allows you to create and store notes. Future functionality will have the delete notes function working.
 
 
-![Webpage2](./assets/Images/Notesapp.PNG)\
+![Webpage2](./public/assets/Images/Notesapp.PNG)\
 
 ## Installation
 ______________________________________________________________________________________________________________________________________________________
