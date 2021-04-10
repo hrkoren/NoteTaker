@@ -1,7 +1,7 @@
 //dependencies
 const express = require('express');
 const path = require('path');
-const dbNotes = require('./db/db.js');
+const dbNotes = require('./db/db.json');
 const { v4: uuidv4 } = require('uuid');
 
 //set up express app
@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //routes
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public','index.html')));
 
-app.get('/notes', (req,res) => res.sendFile(path.join(__dirname, 'public', 'notes.html')));
+app.get('/notes', (req,res) => res.sendFile(path.join(__dirname, 'public','notes.html')));
 
 //display all notes
 app.get('/api/notes', (req, res) => res.json(dbNotes));
@@ -44,12 +44,12 @@ app.post('/api/notes', (req, res) => {
 });
 
 // delete notes
-app.delete('/api/notes/:id', (req, res) => {
-    let noteId = req.params.id;
-    delete dbNotes(noteId); 
-    dbUpdate(dbNotes);
-    res.send(dbNotes);
-});
+// app.delete('/api/notes/:id', (req, res) => {
+//     let noteId = req.params.id;
+//     delete dbNotes(noteId); 
+//     dbUpdate(dbNotes);
+//     res.send(dbNotes);
+// });
 
 //start server to begin listening
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
