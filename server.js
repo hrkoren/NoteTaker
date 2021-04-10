@@ -1,5 +1,6 @@
 //dependencies
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const dbNotes = require('./db/db.json');
 const { v4: uuidv4 } = require('uuid');
@@ -21,7 +22,7 @@ app.get('/notes', (req,res) => res.sendFile(path.join(__dirname, 'public','notes
 //display all notes
 app.get('/api/notes', (req, res) => res.json(dbNotes));
 
-//display a single note, or return false
+//display notes, or return false
 app.get('/api/notes/:note', (req, res) => {
     const searched = req.params.note;
     console.log(searched);
@@ -29,9 +30,13 @@ app.get('/api/notes/:note', (req, res) => {
     for (let i = 0; i < dbNotes.length; i++) {
         if (searched === dbNotes[i].routeName) {
             return res.json(dbNotes[i]);
-        }
     }
-})
+    fs.readFile('./db/db.json', JSON.parse(dbNotes), (err) =>  {
+        if (err) throw err;
+    });
+}
+});
+
 
 //create new notes
 app.post('/api/notes', (req, res) => {
@@ -40,16 +45,26 @@ app.post('/api/notes', (req, res) => {
     newNote.routeName = newNote.title.replace(/\s+/g, '');
     newNote.id = uuidv4();
     dbNotes.push(newNote);
+    
+
+    fs.writeFile('./db/db.json', JSON.stringify(dbNotes), (err) =>  {
+        if (err) throw err;
+    });
     res.json(newNote);
-});
 
 // delete notes
-// app.delete('/api/notes/:id', (req, res) => {
-//     let noteId = req.params.id;
-//     delete dbNotes(noteId); 
-//     dbUpdate(dbNotes);
-//     res.send(dbNotes);
-// });
+app.delete('/api/notes/{id}', (req, res) => {
+    fs.readFile(newNote, (err) => {
+        if(err) throw err;
+        newNote = JSON.parse(data);
+
+    let noteId = newNote.find(({id}) => id === req.params.id)
+    newNote.splice(noteId, 1);
+    dbUpdate(dbNotes);
+    res.send(dbNotes);
+});
+});
+});
 
 //start server to begin listening
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
